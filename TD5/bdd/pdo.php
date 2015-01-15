@@ -3,7 +3,7 @@
 try {
     $pdo = new \PDO(
         'mysql:dbname=sondage;host=localhost',
-        'sondage', 'sondage'
+        'root'
     );
 } catch (\PDOException $e) {
     header('Content-type: text/plain');
