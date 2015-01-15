@@ -5,9 +5,11 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($_POST['login']) && !empty($_POST['password'])) {
-            $req = $pdo->query('SELECT * FROM users WHERE login="'.$_POST['login'].'"');
-            if ($req->rowCount()) {
-                $user = $req->fetch();
+            $req = 'SELECT * FROM users WHERE login= ?';
+            $query = $pdo->prepare($req);
+            $query->execute(array($_POST['login']));
+            if ($query->rowCount()) {
+                $user = $query->fetch();
                 if ($user['password'] == $_POST['password']) {
                     $currentUser = $user;
                     $_SESSION['user'] = $currentUser['id'];
