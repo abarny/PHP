@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $req =$query->fetch();
             if ($req['nb'] == 0) {
                 $query = $pdo->prepare('INSERT INTO users (login, password) VALUES (?,?)');
-                $query->execute(array($_POST['login'], $_POST['password']));
+                $query->execute(array($_POST['login'], md5($_POST['password'])));
 ?>
 <div class="alert alert-success">
     Félicitations! Vous êtes désormais inscrits.
