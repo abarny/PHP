@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    {% if polls is not defined %}
+        <h2>Sondage</h2>
+
+        <div class="alert alert-danger">
+            Sondage non trouvé.
+        </div>
+    {% else %}
+        {% for poll in polls %}
+            <h2>{{ poll.question }}</h2>
+
+            <form action="" method="post">
+                {% set anyPoll = false %}
+                {% for answer in [1, 2, 3] %}
+                    {% set currentAnswer = 'answer'~answer %}
+                    {% if poll[currentAnswer] %}
+
+                        <h3>
+                            <label>
+                                {% if ((app.session.get('user')) and (not userAnswered)) %}
+                                    <input type="radio" name="answer" value="{{ answer }}" />
+                                {% endif %}
+
+                                {{ poll[currentAnswer] }}
+
+                            </label>
+                        </h3>
+                        {% if answers != null %}
+
+                            {% if total != 0 %}
+                                {% set pct = (answers[answer]*100) / total %}
+                                {% set anyPoll = true %}
+                            {% else %}
+                                {% set pct = 0 %}
+                            {% endif %}
+
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ pct }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ pct }}%">
+                                    {{ pct|round(2, 'floor') }}%
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if not anyPoll %}
+                    <div class="alert alert-info">
+                        Pas encore de vote pour ce sondage. {{ app.session.get('user') ? 'N\'hésitez pas à en laisser un !' : 'N\'hésitez pas à vous identifier et en laisser un !' }}
+                    </div>
+                {% endif %}
+                {% if app.session.get('user') %}
+                    {% if not userAnswered %}
+                        <input class="btn btn-success pull-right" type="submit" value="Participer!" />
+                    {% else %}
+                        <div class="alert alert-success">
+                            Vous avez répondu à ce sondage
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="alert alert-warning">
+                        Vous devez être identifié pour participer!
+                    </div>
+                {% endif %}
+            </form>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

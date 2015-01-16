@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <ul class="list-group">
+        {% for poll in polls %}
+            <li class="list-group-item">
+                <strong>{{ poll.question }} </strong>
+                <a href="{{ app.request.basePath }}/pollsId/{{ poll.id }}" class="btn btn-xs btn-success pull-right">
+                    Voir &raquo;
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

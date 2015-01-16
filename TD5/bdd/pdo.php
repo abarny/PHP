@@ -2,8 +2,8 @@
 
 try {
     $pdo = new \PDO(
-        'mysql:dbname=sondage;host=localhost',
-        'root'
+            'mysql:dbname=td5_gregwar;host=127.0.0.1', 'root', ''
+            
     );
 } catch (\PDOException $e) {
     header('Content-type: text/plain');

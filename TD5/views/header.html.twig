@@ -1,0 +1,33 @@
+{% block header %}
+    <h1>
+        <img src="{{ app.request.basePath }}/imgs/poll.png" />
+        Social <span class="sondage">Sondage</span>
+    </h1>
+    <nav class="navbar navbar-default">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path('home') }}">Accueil</a>
+                </li>
+                {% if (app.session.get('user')) %}
+                    <li>
+                        <a href="{{ path('logout') }}">Déconnexion</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('create') }}">Nouveau sondage</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('register') }}">Inscription</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('login') }}">Identification</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('polls') }}">Sondages</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
