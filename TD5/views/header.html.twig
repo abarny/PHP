@@ -6,25 +6,25 @@
     <nav class="navbar navbar-default">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>
+                <li class="{% if app.request.requesturi == "/" %}active{% endif %}">
                     <a href="{{ path('home') }}">Accueil</a>
                 </li>
                 {% if (app.session.get('user')) %}
-                    <li>
+                    <li class="{% if app.request.requesturi == "/logout" %}active{% endif %}">
                         <a href="{{ path('logout') }}">Déconnexion</a>
                     </li>
-                    <li>
+                    <li class="{% if app.request.requesturi == "/create" %}active{% endif %}">
                         <a href="{{ path('create') }}">Nouveau sondage</a>
                     </li>
                 {% else %}
-                    <li>
+                    <li class="{% if app.request.requesturi == "/register" %}active{% endif %}">
                         <a href="{{ path('register') }}">Inscription</a>
                     </li>
-                    <li>
+                    <li class="{% if app.request.requesturi == "/login" %}active{% endif %}">
                         <a href="{{ path('login') }}">Identification</a>
                     </li>
                 {% endif %}
-                <li>
+                <li class="{% if app.request.requesturi == "/polls" %}active{% endif %}">
                     <a href="{{ path('polls') }}">Sondages</a>
                 </li>
             </ul>
